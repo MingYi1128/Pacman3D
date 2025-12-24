@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         _pelletGenerator.GeneratePellets();
-        _player.Reset();
-        _player.PlayerTransform.position = new Vector3(_playerSpawn.transform.position.x, 0, _playerSpawn.transform.position.z);
+        _player.SetPosition(_playerSpawn.transform.position);
+        _player.OnGameReset();
         foreach (EntityGhost ghost in _ghosts)
         {
             Destroy(ghost.gameObject);
