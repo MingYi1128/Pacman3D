@@ -56,11 +56,12 @@ public class GameManager : MonoBehaviour
             Destroy(ghost.gameObject);
         }
         _ghosts.Clear();
-
         for (int i = 0; i < 4; i++)
         {
             var ghost = Instantiate(_ghostPrefab);
-            ghost.transform.position = _ghostSpawn.transform.position;
+            ghost.SetPosition(_ghostSpawn.transform.position);
+            ghost.Activate();
+            Debug.Log("Spawning Ghost at " + _ghostSpawn.transform.position);
             _ghosts.Add(ghost);
         }
     }
