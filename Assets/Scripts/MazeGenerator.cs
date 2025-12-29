@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DefaultNamespace;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -24,7 +23,18 @@ public class MazeGenerator : MonoBehaviour
     
     private int[,] map;
     private Vector3 playerSpawnPoint;
-        
+    private int pelletCount = 0;
+
+    public int GetPelletCount()
+    {
+        return pelletCount;
+    }
+
+    public Vector3 GetPlayerSpawningPosition()
+    {
+        return playerSpawnPoint;
+    }
+    
     public void GenerateMaze()
     {
         if (mazeParent != null)
@@ -42,6 +52,8 @@ public class MazeGenerator : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+
+        pelletCount = 0;
         
         if (width % 2 == 0) width++;
         if (depth % 2 == 0) depth++;
@@ -106,10 +118,6 @@ public class MazeGenerator : MonoBehaviour
         playerSpawnPoint = new Vector3(centerX, 1.0f, centerZ);
     }
     
-    public Vector3 GetPlayerSpawningPosition()
-    {
-        return playerSpawnPoint;
-    }
     
     void CreateCenterRoom()
     {
@@ -195,6 +203,7 @@ public class MazeGenerator : MonoBehaviour
                     Vector3 pos = new Vector3(x * wallSize, 0.5f, z * wallSize);
                     GameObject pellet = Instantiate(pelletPrefab, pos, Quaternion.identity);
                     pellet.transform.SetParent(pelletParent);
+                    pelletCount++;
                 }
             }
         }
