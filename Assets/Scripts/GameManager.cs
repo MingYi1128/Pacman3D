@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     private List<EntityGhost> _ghosts;
     
     
+    private MazeGenerator _mazeGenerator;
     private PelletGenerator _pelletGenerator;
 
 
@@ -44,11 +45,18 @@ public class GameManager : MonoBehaviour
         return _player;
     }
 
+    public void PostGeneration()
+    {
+        _pelletGenerator.GeneratePellets();
+    }
 
     public void Restart()
     {
-        _pelletGenerator.GeneratePellets();
-        _player.SetPosition(_playerSpawn.transform.position);
+        _mazeGenerator.GenerateMaze();
+        InvokeRepeating("PostGeneration", 2f, 0);
+        var position = _mazeGenerator.GetPlayerSpawningPosition();
+        Debug.Log("Spawning Player at " + position);
+        _player.SetPosition(position);
         _player.OnGameReset();
         foreach (EntityGhost ghost in _ghosts)
         {
@@ -62,12 +70,12 @@ public class GameManager : MonoBehaviour
             ghost.transform.position = _ghostSpawn.transform.position;
             _ghosts.Add(ghost);
         }
-        
     }
 
     private void Awake()
     {
         _pelletGenerator = GetComponent<PelletGenerator>();
+        _mazeGenerator = GetComponent<MazeGenerator>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
