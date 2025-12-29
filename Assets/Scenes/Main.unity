@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2868546}
   - component: {fileID: 2868545}
-  - component: {fileID: 2868547}
   - component: {fileID: 2868548}
   m_Layer: 0
   m_Name: GameManager
@@ -150,11 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933e1588137e77a49ba3c92ce6ba6127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpawn: {fileID: 1311957250}
   _ghostSpawn: {fileID: 346525895}
   _ghostPrefab: {fileID: 8880449983900039395, guid: 4315aa833b7ca5142807adbd3bfb2f91, type: 3}
   _player: {fileID: 1237041041}
   _ghosts: []
+  _gameUI: {fileID: 0}
 --- !u!4 &2868546
 Transform:
   m_ObjectHideFlags: 0
@@ -170,23 +169,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2868547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2868544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9f3223ca939427e8b8517a9d9af8ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pelletPrefab: {fileID: 2827288706141886693, guid: 7c47cc4b767dcf54d9a8727c6e2c11af, type: 3}
-  gridSpacing: 3
-  yOffset: 0.5
-  pelletParent: {fileID: 1382361526}
-  generationArea: {fileID: 0}
 --- !u!114 &2868548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1698,7 +1680,6 @@ GameObject:
   m_Component:
   - component: {fileID: 937915584}
   - component: {fileID: 937915583}
-  - component: {fileID: 937915582}
   - component: {fileID: 937915581}
   m_Layer: 0
   m_Name: MiniMapCamera
@@ -1751,14 +1732,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &937915582
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937915580}
-  m_Enabled: 1
 --- !u!20 &937915583
 Camera:
   m_ObjectHideFlags: 0
@@ -3157,37 +3130,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &1311957250
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1311957251}
-  m_Layer: 0
-  m_Name: PlayerSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1311957251
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311957250}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22, y: 0.1, z: 22}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2069531726}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1382361525
 GameObject:
   m_ObjectHideFlags: 0
@@ -4512,7 +4454,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 346525896}
-  - {fileID: 1311957251}
   m_Father: {fileID: 59580579}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &2099995387
