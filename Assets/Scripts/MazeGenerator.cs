@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DefaultNamespace;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,9 +16,11 @@ public class MazeGenerator : MonoBehaviour
     
     public NavMeshSurface navMeshSurface;
     public Transform mazeParent;
+    public Transform pelletParent;
 
     [Header("Prefab")]
     public GameObject wallPrefab; 
+    public GameObject pelletPrefab;
     
     private int[,] map;
     private Vector3 playerSpawnPoint;
@@ -32,8 +35,14 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        mazeParent.transform.position = new Vector3(0, 0, 0);
-
+        if (pelletParent != null)
+        {
+            foreach (Transform child in pelletParent)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        
         if (width % 2 == 0) width++;
         if (depth % 2 == 0) depth++;
 
@@ -49,9 +58,6 @@ public class MazeGenerator : MonoBehaviour
         {
             navMeshSurface.BuildNavMesh();
         }
-        
-        var mazePosition = new Vector3(-width + 1, -1, -depth + 1);
-        mazeParent.transform.position = mazePosition;
     }
     
     void CreateCornerSpawnRoom()
@@ -97,8 +103,7 @@ public class MazeGenerator : MonoBehaviour
         centerX -= wallSize * 0.5f; 
         centerZ -= wallSize * 0.5f;
 
-        playerSpawnPoint = new Vector3(centerX / 2.0f, 0.5f, centerZ / 2.0f);
-    
+        playerSpawnPoint = new Vector3(centerX, 1.0f, centerZ);
     }
     
     public Vector3 GetPlayerSpawningPosition()
@@ -184,6 +189,12 @@ public class MazeGenerator : MonoBehaviour
                     GameObject wall = Instantiate(wallPrefab, pos, Quaternion.identity);
                     wall.transform.SetParent(mazeParent);
                     wall.transform.localScale = new Vector3(wallSize, 2.5f, wallSize); 
+                }
+                else
+                {
+                    Vector3 pos = new Vector3(x * wallSize, 0.5f, z * wallSize);
+                    GameObject pellet = Instantiate(pelletPrefab, pos, Quaternion.identity);
+                    pellet.transform.SetParent(pelletParent);
                 }
             }
         }

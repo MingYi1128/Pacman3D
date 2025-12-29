@@ -37,23 +37,16 @@ public class GameManager : MonoBehaviour
     
     
     private MazeGenerator _mazeGenerator;
-    private PelletGenerator _pelletGenerator;
-
 
     public EntityPlayer GetPlayer()
     {
         return _player;
     }
-
-    public void PostGeneration()
-    {
-        _pelletGenerator.GeneratePellets();
-    }
+    
 
     public void Restart()
     {
         _mazeGenerator.GenerateMaze();
-        InvokeRepeating("PostGeneration", 2f, 0);
         var position = _mazeGenerator.GetPlayerSpawningPosition();
         Debug.Log("Spawning Player at " + position);
         _player.SetPosition(position);
@@ -74,7 +67,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        _pelletGenerator = GetComponent<PelletGenerator>();
         _mazeGenerator = GetComponent<MazeGenerator>();
     }
 
