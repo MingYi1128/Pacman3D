@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField]
-    private GameObject _playerSpawn;
-    [SerializeField]
     private GameObject _ghostSpawn;
 
     [Header("Prefabs")] 
