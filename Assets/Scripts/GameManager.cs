@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private List<EntityGhost> _ghosts;
     
+    [SerializeField]
+    private GameUI _gameUI;
+    
     
     private MazeGenerator _mazeGenerator;
 
