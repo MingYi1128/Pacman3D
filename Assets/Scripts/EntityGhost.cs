@@ -14,9 +14,9 @@ public class EntityGhost : MonoBehaviour
     public float wanderRadius = 15f; 
     public float waitTimeAtPoint = 2f;
 
-    private enum GhostState { Patrol, Chase }
+    private enum GhostState { Deactivated, Patrol, Chase }
     [SerializeField]
-    private GhostState currentState = GhostState.Patrol;
+    private GhostState currentState = GhostState.Deactivated;
 
     private NavMeshAgent agent;
     private float timer;
@@ -31,6 +31,19 @@ public class EntityGhost : MonoBehaviour
         _collider = GetComponent<CapsuleCollider>();
     }
 
+
+    public void Activate()
+    {
+        currentState = GhostState.Patrol;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        if (agent != null)
+        {
+            agent.Warp(position);
+        }
+    }
 
     void OnTriggerEnter(Collider other)
     {
