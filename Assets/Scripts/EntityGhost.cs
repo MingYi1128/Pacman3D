@@ -44,17 +44,7 @@ public class EntityGhost : MonoBehaviour
             agent.Warp(position);
         }
     }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Player"))
-        {
-            return;
-        }
-        
-        GameManager.Instance.Restart();
-    }
-
+    
     void Update()
     {
         switch (currentState)

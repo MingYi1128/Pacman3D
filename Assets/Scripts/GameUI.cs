@@ -23,6 +23,6 @@ public class GameUI : MonoBehaviour
 
     public void setPelletCount(int currentPelletCount, int totalPelletCount)
     {
-        _pelletCounterText.text = string.Format("%d/%d", currentPelletCount);
+        _pelletCounterText.text = currentPelletCount + "/" + totalPelletCount;
     }
 }

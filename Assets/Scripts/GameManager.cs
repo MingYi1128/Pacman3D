@@ -40,19 +40,20 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerEatPellet(EntityPellet pellet)
     {
-        Destroy(pellet.gameObject);
+        Destroy(pellet.gameObject, 0.1f);
         _pellets.Remove(pellet);
-        _gameUI.setPelletCount(_pellets.Count, _mazeGeneration.GeneratedPelletCount);
+        UpdateUI();
     }
 
     public void OnPlayerDamaged()
     {
-        _gameUI.setLife(_player.LifeRemaining);
+        RespawnGhosts();
+        UpdateUI();
     }
 
     public void OnPlayerKilled()
     {
-        
+        Restart();
     }
 
     public EntityPlayer GetPlayer()
@@ -60,25 +61,54 @@ public class GameManager : MonoBehaviour
         return _player;
     }
 
-    public void Restart()
+    public void UpdateUI()
     {
-        var mazeGeneration = _mazeGenerator.GenerateMaze();
-        Debug.Log("Spawning Player at " + mazeGeneration.PlayerSpawnPosition);
-        _player.SetPosition(mazeGeneration.PlayerSpawnPosition);
-        _player.OnGameReset();
+        _gameUI.setLife(_player.LifeRemaining);
+        _gameUI.setPelletCount(_pellets.Count, _mazeGeneration.GeneratedPelletCount);
+        _gameUI.setLevel(1);
+    }
 
+    public void Restart()
+    { 
+        _mazeGeneration = _mazeGenerator.GenerateMaze();
+        Debug.Log("Spawning Player at " + _mazeGeneration.PlayerSpawnPosition);
+        _player.SetPosition(_mazeGeneration.PlayerSpawnPosition);
+        _player.OnGameReset();
+        
+        RespawnGhosts();
+        ApplyPellets();
+        
+        UpdateUI();
+    }
+
+    public void ApplyPellets()
+    {
+        if (_pellets == null)
+        {
+            _pellets = new List<EntityPellet>();
+        }
+        
         foreach (var pellet in _pellets)
         {
             Destroy(pellet.gameObject);
         }
         _pellets.Clear();
-        _pellets.AddRange(mazeGeneration.Pellets);
+        _pellets.AddRange(_mazeGeneration.Pellets);
+    }
+
+    public void RespawnGhosts()
+    {
+        if (_ghosts == null)
+        {
+            _ghosts = new List<EntityGhost>();
+        }
         
         foreach (EntityGhost ghost in _ghosts)
         {
             Destroy(ghost.gameObject);
         }
         _ghosts.Clear();
+        
         for (int i = 0; i < 4; i++)
         {
             var ghost = Instantiate(_ghostPrefab);
@@ -87,12 +117,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("Spawning Ghost at " + _ghostSpawn.transform.position);
             _ghosts.Add(ghost);
         }
-        
     }
-
+    
     private void Awake()
     {
         _mazeGenerator = GetComponent<MazeGenerator>();
+        _player.OnPlayerDamaged += OnPlayerDamaged;
+        _player.OnPlayerKilled += OnPlayerKilled;
+        _player.OnPlayerEatPellet += OnPlayerEatPellet;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

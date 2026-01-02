@@ -52,9 +52,9 @@ public class EntityPlayer : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            lifeCount--;
+            _lifeRemaining--;
             OnPlayerDamaged.Invoke();
-            if (lifeCount == 0)
+            if (_lifeRemaining == 0)
             {
                 OnPlayerKilled.Invoke();
             }
