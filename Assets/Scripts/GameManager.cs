@@ -35,16 +35,24 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameUI _gameUI;
     
-    
     private MazeGeneration _mazeGeneration;
     private MazeGenerator _mazeGenerator;
 
-
-    public void DestroyPellet(EntityPellet pellet)
+    public void OnPlayerEatPellet(EntityPellet pellet)
     {
         Destroy(pellet.gameObject);
         _pellets.Remove(pellet);
         _gameUI.setPelletCount(_pellets.Count, _mazeGeneration.GeneratedPelletCount);
+    }
+
+    public void OnPlayerDamaged()
+    {
+        _gameUI.setLife(_player.LifeRemaining);
+    }
+
+    public void OnPlayerKilled()
+    {
+        
     }
 
     public EntityPlayer GetPlayer()
