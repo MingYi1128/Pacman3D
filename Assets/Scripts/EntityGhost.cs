@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
-using UnityEngine.AI; // 必須引用 AI 命名空間
+using UnityEngine.AI;
+using Random = UnityEngine.Random; // 必須引用 AI 命名空間
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EntityGhost : MonoBehaviour
@@ -28,13 +30,18 @@ public class EntityGhost : MonoBehaviour
     private Collider _collider;
     private AudioSource _audioSource;
 
-    void Start()
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = patrolSpeed;
-        timer = waitTimeAtPoint; // 初始計時器
         _collider = GetComponent<CapsuleCollider>();
         _audioSource = GetComponent<AudioSource>();
+    }
+
+    void Start()
+    {
+        agent.speed = patrolSpeed;
+        timer = waitTimeAtPoint; // 初始計時器
+
         _audioSource.clip = _sirenAudioClip;
         _audioSource.loop = true;
         _audioSource.Play();
@@ -48,9 +55,10 @@ public class EntityGhost : MonoBehaviour
 
     public void SetPosition(Vector3 position)
     {
-        if (agent != null)
+        if (NavMesh.SamplePosition(position, out var hit, 4.0f, NavMesh.AllAreas))
         {
-            agent.Warp(position);
+            Debug.Log("Ghost#SetPosition " + hit.position);
+            agent.Warp(hit.position);
         }
     }
     

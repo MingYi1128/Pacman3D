@@ -126,7 +126,6 @@ public class GameManager : MonoBehaviour
             var ghost = Instantiate(_ghostPrefab);
             ghost.SetPosition(_ghostSpawn.transform.position);
             ghost.Activate();
-            Debug.Log("Spawning Ghost at " + _ghostSpawn.transform.position);
             _ghosts.Add(ghost);
         }
     }
