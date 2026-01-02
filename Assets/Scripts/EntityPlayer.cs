@@ -5,13 +5,17 @@ using CharacterController = Oculus.Interaction.Locomotion.CharacterController;
 
 public class EntityPlayer : MonoBehaviour
 {
+    public delegate void EventPlayerDamaged();
+    public event EventPlayerDamaged OnPlayerDamaged;
 
+    public delegate void EventPlayerEatPellet(EntityPellet pellet);
+    public event EventPlayerEatPellet OnPlayerEatPellet;
+    
 
     private CharacterController _characterController;
     private FirstPersonLocomotor _locomotor;
+    
 
-
-    private int _score = 0;
 
     private void Awake()
     {
@@ -26,7 +30,6 @@ public class EntityPlayer : MonoBehaviour
 
     public void OnGameReset()
     {
-        _score = 0;
         _locomotor.ResetPlayerToCharacter();
     }
 
@@ -34,8 +37,12 @@ public class EntityPlayer : MonoBehaviour
     {
         if (other.CompareTag("Pellet"))
         {
-            _score++;
-            Debug.Log(_score);
+            OnPlayerEatPellet.Invoke(other.GetComponent<EntityPellet>());
+        }
+
+        if (other.CompareTag("Enemy"))
+        {
+            OnPlayerDamaged.Invoke();
         }
     }
 }
