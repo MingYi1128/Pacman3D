@@ -14,6 +14,10 @@ public class EntityGhost : MonoBehaviour
     public float wanderRadius = 15f; 
     public float waitTimeAtPoint = 2f;
 
+    [Header("Audio")] 
+    [SerializeField]
+    private AudioClip _sirenAudioClip;
+
     private enum GhostState { Deactivated, Patrol, Chase }
     [SerializeField]
     private GhostState currentState = GhostState.Deactivated;
@@ -22,6 +26,7 @@ public class EntityGhost : MonoBehaviour
     private float timer;
 
     private Collider _collider;
+    private AudioSource _audioSource;
 
     void Start()
     {
@@ -29,6 +34,10 @@ public class EntityGhost : MonoBehaviour
         agent.speed = patrolSpeed;
         timer = waitTimeAtPoint; // 初始計時器
         _collider = GetComponent<CapsuleCollider>();
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = _sirenAudioClip;
+        _audioSource.loop = true;
+        _audioSource.Play();
     }
 
 

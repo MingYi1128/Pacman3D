@@ -38,6 +38,12 @@ public class GameManager : MonoBehaviour
     private MazeGeneration _mazeGeneration;
     private MazeGenerator _mazeGenerator;
 
+    public void OnPlayerReady()
+    {
+        SpawnGhosts();
+        UpdateUI();
+    }
+
     public void OnPlayerEatPellet(EntityPellet pellet)
     {
         Destroy(pellet.gameObject, 0.1f);
@@ -47,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDamaged()
     {
-        RespawnGhosts();
+        DespawnGhosts();
         UpdateUI();
     }
 
@@ -75,9 +81,7 @@ public class GameManager : MonoBehaviour
         _player.SetPosition(_mazeGeneration.PlayerSpawnPosition);
         _player.OnGameReset();
         
-        RespawnGhosts();
         ApplyPellets();
-        
         UpdateUI();
     }
 
@@ -96,7 +100,7 @@ public class GameManager : MonoBehaviour
         _pellets.AddRange(_mazeGeneration.Pellets);
     }
 
-    public void RespawnGhosts()
+    public void DespawnGhosts()
     {
         if (_ghosts == null)
         {
@@ -108,6 +112,14 @@ public class GameManager : MonoBehaviour
             Destroy(ghost.gameObject);
         }
         _ghosts.Clear();
+    }
+
+    public void SpawnGhosts()
+    {
+        if (_ghosts == null)
+        {
+            _ghosts = new List<EntityGhost>();
+        }
         
         for (int i = 0; i < 4; i++)
         {
@@ -125,6 +137,7 @@ public class GameManager : MonoBehaviour
         _player.OnPlayerDamaged += OnPlayerDamaged;
         _player.OnPlayerKilled += OnPlayerKilled;
         _player.OnPlayerEatPellet += OnPlayerEatPellet;
+        _player.OnPlayerReady += OnPlayerReady;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
