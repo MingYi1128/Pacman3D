@@ -29,28 +29,43 @@ public class GameManager : MonoBehaviour
     [Header("Entity")]
     [SerializeField]
     private EntityPlayer _player;
-    [SerializeField]
     private List<EntityGhost> _ghosts;
+    private List<EntityPellet> _pellets;
     
     [SerializeField]
     private GameUI _gameUI;
     
     
+    private MazeGeneration _mazeGeneration;
     private MazeGenerator _mazeGenerator;
+
+
+    public void DestroyPellet(EntityPellet pellet)
+    {
+        Destroy(pellet.gameObject);
+        _pellets.Remove(pellet);
+        _gameUI.setPelletCount(_pellets.Count, _mazeGeneration.GeneratedPelletCount);
+    }
 
     public EntityPlayer GetPlayer()
     {
         return _player;
     }
-    
 
     public void Restart()
     {
-        _mazeGenerator.GenerateMaze();
-        var position = _mazeGenerator.GetPlayerSpawningPosition();
-        Debug.Log("Spawning Player at " + position);
-        _player.SetPosition(position);
+        var mazeGeneration = _mazeGenerator.GenerateMaze();
+        Debug.Log("Spawning Player at " + mazeGeneration.PlayerSpawnPosition);
+        _player.SetPosition(mazeGeneration.PlayerSpawnPosition);
         _player.OnGameReset();
+
+        foreach (var pellet in _pellets)
+        {
+            Destroy(pellet.gameObject);
+        }
+        _pellets.Clear();
+        _pellets.AddRange(mazeGeneration.Pellets);
+        
         foreach (EntityGhost ghost in _ghosts)
         {
             Destroy(ghost.gameObject);
@@ -64,6 +79,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Spawning Ghost at " + _ghostSpawn.transform.position);
             _ghosts.Add(ghost);
         }
+        
     }
 
     private void Awake()
