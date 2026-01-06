@@ -1,14 +1,3 @@
-<img width="1381" height="674" alt="image" src="https://github.com/user-attachments/assets/e5f59876-eb04-40dc-9286-266235450c2c" />專案簡介：一句話講完這在玩什麼。
-
-安裝教學：如何安裝 APK？如何編譯 Source？
-
-操作說明：對應按鍵或手勢圖解。
-
-架構圖：簡單的系統方塊圖（例如：GameManager <-> Spawner <-> Enemy）。
-
-# 專案簡介
-3D 版小精靈，吃完豆子但是不能被鬼抓到
-
 # 安裝教學
 ### 前置作業
 遊戲使用 Unity 6000.0.64f1 開發，務必先透過 Unity Hub 下載該版本
