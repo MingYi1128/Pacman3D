@@ -1436,20 +1436,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1272363601}
     - target: {fileID: 5801245061754409418, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
-      propertyPath: _speedFactor
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 5801245061754409418, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
-      propertyPath: _acceleration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5801245061754409418, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       propertyPath: _playerOrigin
       value: 
       objectReference: {fileID: 1675613837}
     - target: {fileID: 5801245061754409418, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
-      propertyPath: _groundDamping
-      value: 20
+      propertyPath: _defaultHeight
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5996210580898946238, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       propertyPath: m_IsActive
@@ -1469,7 +1461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7218948594749983592, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       propertyPath: _maxStep
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8839895570256033423, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       propertyPath: m_IsActive
@@ -3937,7 +3929,7 @@ MonoBehaviour:
   requestBodyTrackingPermissionOnStartup: 0
   requestFaceTrackingPermissionOnStartup: 0
   requestEyeTrackingPermissionOnStartup: 0
-  requestScenePermissionOnStartup: 0
+  requestScenePermissionOnStartup: 1
   requestRecordAudioPermissionOnStartup: 0
   requestPassthroughCameraAccessPermissionOnStartup: 0
   _localDimming: 1
@@ -4782,6 +4774,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 166190300}
     m_Modifications:
     - target: {fileID: 220869468689873566, guid: 2a2cf12b21792854591edc587e739810, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 220869468689873566, guid: 2a2cf12b21792854591edc587e739810, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.1
       objectReference: {fileID: 0}
@@ -4821,12 +4817,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 447845145557870766, guid: 2a2cf12b21792854591edc587e739810, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1272363599}
+    - target: {fileID: 2144997798198065564, guid: 2a2cf12b21792854591edc587e739810, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1272363599}
+    - target: {fileID: 2716666012534324550, guid: 2a2cf12b21792854591edc587e739810, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.00435
+      objectReference: {fileID: 0}
     - target: {fileID: 7150341794332782856, guid: 2a2cf12b21792854591edc587e739810, type: 3}
       propertyPath: m_Name
       value: MiniMap
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2980463091222995483, guid: 2a2cf12b21792854591edc587e739810, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a2cf12b21792854591edc587e739810, type: 3}
